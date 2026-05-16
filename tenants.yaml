@@ -1,0 +1,6 @@
+tenants:
+  - name: acme-corp
+    namespace: acme-corp
+    database: acme_corp
+    db_user: acme_corp_user
+    db_host_cidr: 10.10.10.15/32

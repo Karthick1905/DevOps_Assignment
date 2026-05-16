@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acme-corp
+  labels:
+    tenant: acme-corp
+    purpose: tenant-workload

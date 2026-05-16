@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: acme-corp-secret-readonly-binding
+  namespace: acme-corp
+subjects:
+  - kind: ServiceAccount
+    name: acme-corp-sa
+    namespace: acme-corp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tenant-secret-readonly

@@ -1,0 +1,33 @@
+Terraform plan sample output. No live cloud account is required for this assignment.
+
+Terraform will perform the following actions:
+
+  # module.tenant_acme_corp.google_sql_database.tenant_db will be created
+  + resource "google_sql_database" "tenant_db" {
+      + name     = "acme_corp"
+      + instance = "shared-postgres"
+    }
+
+  # module.tenant_acme_corp.google_sql_user.tenant_user will be created
+  + resource "google_sql_user" "tenant_user" {
+      + name     = "acme_corp_user"
+      + instance = "shared-postgres"
+    }
+
+  # module.tenant_acme_corp.google_secret_manager_secret.tenant_db_credentials will be created
+  + resource "google_secret_manager_secret" "tenant_db_credentials" {
+      + secret_id = "tenant-acme-corp-credentials"
+    }
+
+  # module.tenant_acme_corp.google_service_account.tenant_workload_identity will be created
+  + resource "google_service_account" "tenant_workload_identity" {
+      + account_id = "acmecorp-wi"
+    }
+
+  # module.tenant_acme_corp.google_secret_manager_secret_iam_member.tenant_secret_reader will be created
+  + resource "google_secret_manager_secret_iam_member" "tenant_secret_reader" {
+      + role   = "roles/secretmanager.secretAccessor"
+      + member = "serviceAccount:acmecorp-wi@tenanthub-prod.iam.gserviceaccount.com"
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.

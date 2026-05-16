@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    purpose: tenant-workload
+    tenant: acme-corp
+  name: acme-corp
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: acmecorp-wi@tenanthub-prod.iam.gserviceaccount.com
+  name: acme-corp-sa
+  namespace: acme-corp
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tenant-secret-readonly
+  namespace: acme-corp
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - acme-corp-db-credentials
+  resources:
+  - secrets
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: acme-corp-secret-readonly-binding
+  namespace: acme-corp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tenant-secret-readonly
+subjects:
+- kind: ServiceAccount
+  name: acme-corp-sa
+  namespace: acme-corp
