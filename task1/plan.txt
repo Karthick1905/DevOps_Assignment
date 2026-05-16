@@ -29,5 +29,3 @@ Terraform will perform the following actions:
       + role   = "roles/secretmanager.secretAccessor"
       + member = "serviceAccount:acmecorp-wi@tenanthub-prod.iam.gserviceaccount.com"
     }
-
-Plan: 6 to add, 0 to change, 0 to destroy.
